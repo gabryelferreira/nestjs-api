@@ -1,18 +1,20 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { PostsService } from './posts.service';
+import { Connection } from 'typeorm';
+import { createMemDB } from '../utils/testing-helpers/createMemDB';
+import { createPostsService } from '../utils/testing-helpers/commonServices';
 
 describe('PostsService', () => {
-  let service: PostsService;
+  let db: Connection;
+  let postsService: PostsService;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [PostsService],
-    }).compile();
-
-    service = module.get<PostsService>(PostsService);
+  beforeAll(async () => {
+    db = await createMemDB();
+    postsService = await createPostsService(db);
   });
 
+  afterAll(() => db.close());
+
   it('should be defined', () => {
-    expect(service).toBeDefined();
+    expect(postsService).toBeDefined();
   });
 });
