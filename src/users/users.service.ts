@@ -8,22 +8,29 @@ export class UsersService {
 
     constructor(
         @InjectRepository(User)
-        private usersRepository: Repository<User>,
+        private readonly usersRepository: Repository<User>
     ) { }
 
     findAllExcept(id: number): Promise<User[]> {
         return this.usersRepository.find({
-            where: {
-                id: Not(id)
-            },
+            where: { id: Not(id) },
+            relations: ["posts"],
             select: ["id", "name", "username"]
         });
     }
 
-    findByUsername(username): Promise<User> {
+    findByUsername(username: string): Promise<User> {
         return this.usersRepository.findOne({
             where: {
                 username
+            }
+        });
+    }
+
+    findById(id: number): Promise<User> {
+        return this.usersRepository.findOne({
+            where: {
+                id
             }
         });
     }
