@@ -7,7 +7,7 @@ export class Post {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(() => User)
+    @ManyToOne(() => User, { nullable: false })
     @JoinColumn({ name: "user_id", referencedColumnName: "id" })
     user: User;
 
