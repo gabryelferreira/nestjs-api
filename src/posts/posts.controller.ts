@@ -1,11 +1,11 @@
 import { Controller, Post, UseGuards, Body, Req, Get } from '@nestjs/common';
 import { PostsService } from './posts.service';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Post as PostEntity } from './post.entity';
 import { Request } from 'express';
-import { User } from 'src/users/user.entity';
-import { CreatePostDto } from 'src/models/dto/post.dto';
-import { UsersService } from 'src/users/users.service';
+import { User } from '../users/user.entity';
+import { CreatePostDTO } from '../models/dto/post.dto';
+import { UsersService } from '../users/users.service';
 
 @Controller('posts')
 export class PostsController {
@@ -17,7 +17,7 @@ export class PostsController {
 
     @UseGuards(JwtAuthGuard)
     @Post()
-    async create(@Req() request: Request, @Body() body: CreatePostDto) {
+    async create(@Req() request: Request, @Body() body: CreatePostDTO) {
         const user = request.user as User;
         const post = new PostEntity();
         post.text = body.text;
