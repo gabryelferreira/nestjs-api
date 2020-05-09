@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, HttpException, HttpStatus, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, HttpException, HttpStatus, UseGuards, Req, HttpCode } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
 import { AuthService } from '../auth/auth.service';
@@ -31,6 +31,7 @@ export class UsersController {
     }
 
     @Post('/auth')
+    @HttpCode(200)
     async login(@Body() login: LoginDTO) {
         const user = await this.usersService.findByUsername(login.username);
         if (!user) {
