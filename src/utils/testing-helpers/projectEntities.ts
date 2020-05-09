@@ -1,7 +1,9 @@
 import { User } from "../../users/user.entity";
 import { Post } from "../../posts/post.entity";
 
-export default [
+const projectEntities = [
     User,
     Post
-]
+];
+
+export default projectEntities;
