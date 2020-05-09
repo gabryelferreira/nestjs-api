@@ -30,20 +30,36 @@ describe('Users Controller', () => {
     const user = createUser();
 
     const result = await usersController.create(user);
-    expect(result.user.id).toBe(1);
-    expect(result.user.name).toBe(user.name);
-    expect(result.user.username).toBe(user.username);
+    expect(result.user).toMatchObject({
+      name: user.name,
+      username: user.username
+    });
+  });
+
+  it('should not return password', async () => {
+    const user = createUser();
+
+    const result = await usersController.create(user);
     expect(result.user.password).toBeUndefined();
   });
 
-  it("should retrieve users except me", async () => {
+  it("should return users", async () => {
     const myUser = await usersService.create(createUser());
-    const anotherUser = await usersService.create(createUser());
+    await usersService.create(createUser());
+
+    const request = createCommonRequest(myUser);
+
+    const result = await usersController.getUsers(request);
+    expect(result.length).toBe(1);
+  });
+
+  it("should not return my user", async () => {
+    const myUser = await usersService.create(createUser());
+    await usersService.create(createUser());
 
     const request = createCommonRequest(myUser);
 
     const result = await usersController.getUsers(request);
     expect(!!result.find(user => user.name === myUser.name)).toBeFalsy();
-    expect(result.find(user => user.username === anotherUser.username)).toBeTruthy();
   });
 });
