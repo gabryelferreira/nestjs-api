@@ -22,13 +22,13 @@ First, create a .env file and copy content from .env.sample file setting the var
 Obs: **NODE_ENV** has to be ***development*** or ***production***.
 
 ### Development
-For development, set the **NODE_ENV** variable in .env file to ***development*** and run the command below:
+For development environment, set the **NODE_ENV** variable in .env file to ***development*** and run the command below:
 ```bash
 $ yarn typeorm migration:run && yarn start:dev
 ```
 
 ### Production
-For production, set the **NODE_ENV** variable in .env file to ***production*** and run the command below:
+For production environment, set the **NODE_ENV** variable in .env file to ***production*** and run the command below:
 ```bash
 $ yarn start:prod
 ```
