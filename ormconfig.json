@@ -1,10 +1,14 @@
 {
-    "type": "sqlite",
-    "database": "nestjs.db",
-    "entities": ["dist/**/*.entity{.ts,.js}"],
-    "migrationsTableName": "custom_migration",
-    "migrations": ["src/db/migrations/*.ts"],
-    "cli": {
+  "type": "sqlite",
+  "database": "nestjs.db",
+  "entities": [
+      "src/**/*.entity{.ts,.js}"
+  ],
+  "migrationsTableName": "custom_migration",
+  "migrations": [
+      "src/db/migrations/*{.ts,.js}"
+  ],
+  "cli": {
       "migrationsDir": "src/db/migrations"
-    }
   }
+}
