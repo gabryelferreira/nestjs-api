@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { PostsModule } from './posts/posts.module';
+import { getEnvConfig } from './config.env';
 
 @Module({
   imports: [
@@ -13,10 +14,9 @@ import { PostsModule } from './posts/posts.module';
     UsersModule,
     PostsModule,
     ConfigModule.forRoot(),
-    TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'nestjs.db',
-      entities: ["dist/**/*.entity{.ts,.js}"],
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: () => getEnvConfig(process.env.NODE_ENV)
     }),
     
   ],
